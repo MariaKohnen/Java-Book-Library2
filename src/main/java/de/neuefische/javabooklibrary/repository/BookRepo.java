@@ -3,10 +3,8 @@ package de.neuefische.javabooklibrary.repository;
 import de.neuefische.javabooklibrary.model.Book;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 @Repository
 public class BookRepo {
@@ -21,8 +19,9 @@ public class BookRepo {
         return List.copyOf(bookRepo.values());
     }
 
-    public Book getBookByIsbn(String isbn) {
-        return bookRepo.get(isbn);
+    public Optional<Book> getBookByIsbn(String isbn) {
+        Optional<Book> bookOptional = Optional.ofNullable(bookRepo.get(isbn));
+        return bookOptional;
     }
 
     public Book addBook(Book book) {
@@ -31,9 +30,11 @@ public class BookRepo {
         return newBook;
     }
 
-    public Book deleteBook(String isbn) {
-        return bookRepo.remove(isbn);
+    public Optional<Book> deleteBook(String isbn) {
+        Optional<Book> book = Optional.ofNullable(bookRepo.get(isbn));
+        return book;
     }
+
 
     public Book updateTitleOfBook(Book book) {
         Book existBook = bookRepo.get(book.getIsbn());

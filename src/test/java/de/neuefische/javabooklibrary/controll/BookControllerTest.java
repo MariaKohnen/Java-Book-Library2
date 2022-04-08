@@ -68,6 +68,21 @@ class BookControllerTest {
     }
 
     @Test
+    void getBookByIsbn_whenInvalidIsbn_thenThrowException() {
+        //GIVEN
+        /* ZUM ÜBERPFÜGEN OB DER TEST FUNKTIONIERT KANN MAN FOLGENDES TESTEN:
+        Book book1 = new Book ("1234", "Nice title");
+        Book book2 = new Book ("invalid-isbn", "Nice title");
+        bookRepo.addBook(book2);
+         */
+        //WHEN //THEN
+        testClient.get()
+                .uri("/book/invalid-isbn")
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
     void addBook_shouldAddBook() {
         //GIVEN
         Book book = new Book ("1234", "Nice title");
